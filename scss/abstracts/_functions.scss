@@ -1,0 +1,25 @@
+@use "sass:math";
+
+@function tw-round($num) {
+  $multiplier: 10000000;
+  @return math.div(math.round($num * $multiplier), $multiplier);
+}
+
+@function tw-rem($px) {
+  @return #{tw-round(math.div($px, 16))}rem;
+}
+
+@function tw-em($px, $base) {
+  @return #{tw-round(math.div($px, $base))}em;
+}
+
+// Escape the responsive prefix for CSS class names (e.g. 'sm' → 'sm\:')
+@function escape-prefix($prefix) {
+  @if $prefix == "" {
+    @return "";
+  }
+  @if $prefix == "2xl" {
+    @return "\\32 xl\\:";
+  }
+  @return "#{$prefix}\\:";
+}

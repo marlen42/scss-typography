@@ -1,0 +1,1237 @@
+@use "sass:math";
+@use "../abstracts/mixins" as m;
+@use "../abstracts/functions" as f;
+@use "../abstracts/variables" as v;
+
+// Base scale for .prose (16px). Accepts a prefix for responsive variants (e.g. 'sm', 'md').
+@mixin generate-base-size($prefix: "") {
+  $p: f.escape-prefix($prefix);
+  .#{$p}prose {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(16),
+        line-height: f.tw-round(math.div(28, 16)),
+        "p": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(20, 16),
+          line-height: f.tw-round(math.div(32, 20)),
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(32, 20),
+          margin-bottom: f.tw-em(32, 20),
+          padding-inline-start: f.tw-em(20, 20),
+        ),
+        "h1": (
+          font-size: f.tw-em(36, 16),
+          margin-top: 0,
+          margin-bottom: f.tw-em(32, 36),
+          line-height: f.tw-round(math.div(40, 36)),
+        ),
+        "h2": (
+          font-size: f.tw-em(24, 16),
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(24, 24),
+          line-height: f.tw-round(math.div(32, 24)),
+        ),
+        "h3": (
+          font-size: f.tw-em(20, 16),
+          margin-top: f.tw-em(32, 20),
+          margin-bottom: f.tw-em(12, 20),
+          line-height: f.tw-round(math.div(32, 20)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(24, 16),
+          margin-bottom: f.tw-em(8, 16),
+          line-height: f.tw-round(math.div(24, 16)),
+        ),
+        "img": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "picture": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "kbd": (
+          font-size: f.tw-em(14, 16),
+          border-radius: f.tw-rem(5),
+          padding-top: f.tw-em(3, 16),
+          padding-inline-end: f.tw-em(6, 16),
+          padding-bottom: f.tw-em(3, 16),
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "code": (
+          font-size: f.tw-em(14, 16),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(21, 24),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(18, 20),
+        ),
+        "pre": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(24, 14)),
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+          border-radius: f.tw-rem(6),
+          padding-top: f.tw-em(12, 14),
+          padding-inline-end: f.tw-em(16, 14),
+          padding-bottom: f.tw-em(12, 14),
+          padding-inline-start: f.tw-em(16, 14),
+        ),
+        "ol": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "ul": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "li": (
+          margin-top: f.tw-em(8, 16),
+          margin-bottom: f.tw-em(8, 16),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(12, 16),
+          margin-bottom: f.tw-em(12, 16),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(12, 16),
+          margin-bottom: f.tw-em(12, 16),
+        ),
+        "dl": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "dt": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "dd": (
+          margin-top: f.tw-em(8, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "hr": (
+          margin-top: f.tw-em(48, 16),
+          margin-bottom: f.tw-em(48, 16),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(24, 14)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(8, 14),
+          padding-bottom: f.tw-em(8, 14),
+          padding-inline-start: f.tw-em(8, 14),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(8, 14),
+          padding-inline-end: f.tw-em(8, 14),
+          padding-bottom: f.tw-em(8, 14),
+          padding-inline-start: f.tw-em(8, 14),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(20, 14)),
+          margin-top: f.tw-em(12, 14),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+}
+
+// Generate all size scales
+@mixin generate-sizes($prefix: "") {
+  $p: f.escape-prefix($prefix);
+
+  .#{$p}prose-sm {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(14),
+        line-height: f.tw-round(math.div(24, 14)),
+        "p": (
+          margin-top: f.tw-em(16, 14),
+          margin-bottom: f.tw-em(16, 14),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(18, 14),
+          line-height: f.tw-round(math.div(28, 18)),
+          margin-top: f.tw-em(16, 18),
+          margin-bottom: f.tw-em(16, 18),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(24, 18),
+          margin-bottom: f.tw-em(24, 18),
+          padding-inline-start: f.tw-em(20, 18),
+        ),
+        "h1": (
+          font-size: f.tw-em(30, 14),
+          margin-top: 0,
+          margin-bottom: f.tw-em(24, 30),
+          line-height: f.tw-round(math.div(36, 30)),
+        ),
+        "h2": (
+          font-size: f.tw-em(20, 14),
+          margin-top: f.tw-em(32, 20),
+          margin-bottom: f.tw-em(16, 20),
+          line-height: f.tw-round(math.div(28, 20)),
+        ),
+        "h3": (
+          font-size: f.tw-em(18, 14),
+          margin-top: f.tw-em(28, 18),
+          margin-bottom: f.tw-em(8, 18),
+          line-height: f.tw-round(math.div(28, 18)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(20, 14),
+          margin-bottom: f.tw-em(8, 14),
+          line-height: f.tw-round(math.div(20, 14)),
+        ),
+        "img": (
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+        ),
+        "picture": (
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+        ),
+        "kbd": (
+          font-size: f.tw-em(12, 14),
+          border-radius: f.tw-rem(5),
+          padding-top: f.tw-em(2, 14),
+          padding-inline-end: f.tw-em(5, 14),
+          padding-bottom: f.tw-em(2, 14),
+          padding-inline-start: f.tw-em(5, 14),
+        ),
+        "code": (
+          font-size: f.tw-em(12, 14),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(18, 20),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(16, 18),
+        ),
+        "pre": (
+          font-size: f.tw-em(12, 14),
+          line-height: f.tw-round(math.div(20, 12)),
+          margin-top: f.tw-em(20, 12),
+          margin-bottom: f.tw-em(20, 12),
+          border-radius: f.tw-rem(4),
+          padding-top: f.tw-em(8, 12),
+          padding-inline-end: f.tw-em(12, 12),
+          padding-bottom: f.tw-em(8, 12),
+          padding-inline-start: f.tw-em(12, 12),
+        ),
+        "ol": (
+          margin-top: f.tw-em(16, 14),
+          margin-bottom: f.tw-em(16, 14),
+          padding-inline-start: f.tw-em(22, 14),
+        ),
+        "ul": (
+          margin-top: f.tw-em(16, 14),
+          margin-bottom: f.tw-em(16, 14),
+          padding-inline-start: f.tw-em(22, 14),
+        ),
+        "li": (
+          margin-top: f.tw-em(4, 14),
+          margin-bottom: f.tw-em(4, 14),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(6, 14),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(6, 14),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(8, 14),
+          margin-bottom: f.tw-em(8, 14),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(16, 14),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(16, 14),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(16, 14),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(16, 14),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(8, 14),
+          margin-bottom: f.tw-em(8, 14),
+        ),
+        "dl": (
+          margin-top: f.tw-em(16, 14),
+          margin-bottom: f.tw-em(16, 14),
+        ),
+        "dt": (
+          margin-top: f.tw-em(16, 14),
+        ),
+        "dd": (
+          margin-top: f.tw-em(4, 14),
+          padding-inline-start: f.tw-em(22, 14),
+        ),
+        "hr": (
+          margin-top: f.tw-em(40, 14),
+          margin-bottom: f.tw-em(40, 14),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(12, 14),
+          line-height: f.tw-round(math.div(18, 12)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(12, 12),
+          padding-bottom: f.tw-em(8, 12),
+          padding-inline-start: f.tw-em(12, 12),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(8, 12),
+          padding-inline-end: f.tw-em(12, 12),
+          padding-bottom: f.tw-em(8, 12),
+          padding-inline-start: f.tw-em(12, 12),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(12, 14),
+          line-height: f.tw-round(math.div(16, 12)),
+          margin-top: f.tw-em(8, 12),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+
+  .#{$p}prose-base {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(16),
+        line-height: f.tw-round(math.div(28, 16)),
+        "p": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(20, 16),
+          line-height: f.tw-round(math.div(32, 20)),
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(32, 20),
+          margin-bottom: f.tw-em(32, 20),
+          padding-inline-start: f.tw-em(20, 20),
+        ),
+        "h1": (
+          font-size: f.tw-em(36, 16),
+          margin-top: 0,
+          margin-bottom: f.tw-em(32, 36),
+          line-height: f.tw-round(math.div(40, 36)),
+        ),
+        "h2": (
+          font-size: f.tw-em(24, 16),
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(24, 24),
+          line-height: f.tw-round(math.div(32, 24)),
+        ),
+        "h3": (
+          font-size: f.tw-em(20, 16),
+          margin-top: f.tw-em(32, 20),
+          margin-bottom: f.tw-em(12, 20),
+          line-height: f.tw-round(math.div(32, 20)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(24, 16),
+          margin-bottom: f.tw-em(8, 16),
+          line-height: f.tw-round(math.div(24, 16)),
+        ),
+        "img": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "picture": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "kbd": (
+          font-size: f.tw-em(14, 16),
+          border-radius: f.tw-rem(5),
+          padding-top: f.tw-em(3, 16),
+          padding-inline-end: f.tw-em(6, 16),
+          padding-bottom: f.tw-em(3, 16),
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "code": (
+          font-size: f.tw-em(14, 16),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(21, 24),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(18, 20),
+        ),
+        "pre": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(24, 14)),
+          margin-top: f.tw-em(24, 14),
+          margin-bottom: f.tw-em(24, 14),
+          border-radius: f.tw-rem(6),
+          padding-top: f.tw-em(12, 14),
+          padding-inline-end: f.tw-em(16, 14),
+          padding-bottom: f.tw-em(12, 14),
+          padding-inline-start: f.tw-em(16, 14),
+        ),
+        "ol": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "ul": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "li": (
+          margin-top: f.tw-em(8, 16),
+          margin-bottom: f.tw-em(8, 16),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(6, 16),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(12, 16),
+          margin-bottom: f.tw-em(12, 16),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(12, 16),
+          margin-bottom: f.tw-em(12, 16),
+        ),
+        "dl": (
+          margin-top: f.tw-em(20, 16),
+          margin-bottom: f.tw-em(20, 16),
+        ),
+        "dt": (
+          margin-top: f.tw-em(20, 16),
+        ),
+        "dd": (
+          margin-top: f.tw-em(8, 16),
+          padding-inline-start: f.tw-em(26, 16),
+        ),
+        "hr": (
+          margin-top: f.tw-em(48, 16),
+          margin-bottom: f.tw-em(48, 16),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(24, 14)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(8, 14),
+          padding-bottom: f.tw-em(8, 14),
+          padding-inline-start: f.tw-em(8, 14),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(8, 14),
+          padding-inline-end: f.tw-em(8, 14),
+          padding-bottom: f.tw-em(8, 14),
+          padding-inline-start: f.tw-em(8, 14),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(14, 16),
+          line-height: f.tw-round(math.div(20, 14)),
+          margin-top: f.tw-em(12, 14),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+
+  .#{$p}prose-lg {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(18),
+        line-height: f.tw-round(math.div(32, 18)),
+        "p": (
+          margin-top: f.tw-em(24, 18),
+          margin-bottom: f.tw-em(24, 18),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(22, 18),
+          line-height: f.tw-round(math.div(32, 22)),
+          margin-top: f.tw-em(24, 22),
+          margin-bottom: f.tw-em(24, 22),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(40, 24),
+          margin-bottom: f.tw-em(40, 24),
+          padding-inline-start: f.tw-em(24, 24),
+        ),
+        "h1": (
+          font-size: f.tw-em(48, 18),
+          margin-top: 0,
+          margin-bottom: f.tw-em(40, 48),
+          line-height: f.tw-round(math.div(48, 48)),
+        ),
+        "h2": (
+          font-size: f.tw-em(30, 18),
+          margin-top: f.tw-em(56, 30),
+          margin-bottom: f.tw-em(32, 30),
+          line-height: f.tw-round(math.div(40, 30)),
+        ),
+        "h3": (
+          font-size: f.tw-em(24, 18),
+          margin-top: f.tw-em(40, 24),
+          margin-bottom: f.tw-em(16, 24),
+          line-height: f.tw-round(math.div(36, 24)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(32, 18),
+          margin-bottom: f.tw-em(8, 18),
+          line-height: f.tw-round(math.div(28, 18)),
+        ),
+        "img": (
+          margin-top: f.tw-em(32, 18),
+          margin-bottom: f.tw-em(32, 18),
+        ),
+        "picture": (
+          margin-top: f.tw-em(32, 18),
+          margin-bottom: f.tw-em(32, 18),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(32, 18),
+          margin-bottom: f.tw-em(32, 18),
+        ),
+        "kbd": (
+          font-size: f.tw-em(16, 18),
+          border-radius: f.tw-rem(5),
+          padding-top: f.tw-em(4, 18),
+          padding-inline-end: f.tw-em(8, 18),
+          padding-bottom: f.tw-em(4, 18),
+          padding-inline-start: f.tw-em(8, 18),
+        ),
+        "code": (
+          font-size: f.tw-em(16, 18),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(26, 30),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(21, 24),
+        ),
+        "pre": (
+          font-size: f.tw-em(16, 18),
+          line-height: f.tw-round(math.div(28, 16)),
+          margin-top: f.tw-em(32, 16),
+          margin-bottom: f.tw-em(32, 16),
+          border-radius: f.tw-rem(6),
+          padding-top: f.tw-em(16, 16),
+          padding-inline-end: f.tw-em(24, 16),
+          padding-bottom: f.tw-em(16, 16),
+          padding-inline-start: f.tw-em(24, 16),
+        ),
+        "ol": (
+          margin-top: f.tw-em(24, 18),
+          margin-bottom: f.tw-em(24, 18),
+          padding-inline-start: f.tw-em(28, 18),
+        ),
+        "ul": (
+          margin-top: f.tw-em(24, 18),
+          margin-bottom: f.tw-em(24, 18),
+          padding-inline-start: f.tw-em(28, 18),
+        ),
+        "li": (
+          margin-top: f.tw-em(12, 18),
+          margin-bottom: f.tw-em(12, 18),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(8, 18),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(8, 18),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(16, 18),
+          margin-bottom: f.tw-em(16, 18),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(24, 18),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(24, 18),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(24, 18),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(24, 18),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(16, 18),
+          margin-bottom: f.tw-em(16, 18),
+        ),
+        "dl": (
+          margin-top: f.tw-em(24, 18),
+          margin-bottom: f.tw-em(24, 18),
+        ),
+        "dt": (
+          margin-top: f.tw-em(24, 18),
+        ),
+        "dd": (
+          margin-top: f.tw-em(12, 18),
+          padding-inline-start: f.tw-em(28, 18),
+        ),
+        "hr": (
+          margin-top: f.tw-em(56, 18),
+          margin-bottom: f.tw-em(56, 18),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(16, 18),
+          line-height: f.tw-round(math.div(24, 16)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(12, 16),
+          padding-bottom: f.tw-em(12, 16),
+          padding-inline-start: f.tw-em(12, 16),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(12, 16),
+          padding-inline-end: f.tw-em(12, 16),
+          padding-bottom: f.tw-em(12, 16),
+          padding-inline-start: f.tw-em(12, 16),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(32, 18),
+          margin-bottom: f.tw-em(32, 18),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(16, 18),
+          line-height: f.tw-round(math.div(24, 16)),
+          margin-top: f.tw-em(16, 16),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+
+  .#{$p}prose-xl {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(20),
+        line-height: f.tw-round(math.div(36, 20)),
+        "p": (
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(24, 20),
+          line-height: f.tw-round(math.div(36, 24)),
+          margin-top: f.tw-em(24, 24),
+          margin-bottom: f.tw-em(24, 24),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(48, 30),
+          margin-bottom: f.tw-em(48, 30),
+          padding-inline-start: f.tw-em(32, 30),
+        ),
+        "h1": (
+          font-size: f.tw-em(56, 20),
+          margin-top: 0,
+          margin-bottom: f.tw-em(48, 56),
+          line-height: f.tw-round(math.div(56, 56)),
+        ),
+        "h2": (
+          font-size: f.tw-em(36, 20),
+          margin-top: f.tw-em(56, 36),
+          margin-bottom: f.tw-em(32, 36),
+          line-height: f.tw-round(math.div(40, 36)),
+        ),
+        "h3": (
+          font-size: f.tw-em(30, 20),
+          margin-top: f.tw-em(48, 30),
+          margin-bottom: f.tw-em(20, 30),
+          line-height: f.tw-round(math.div(40, 30)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(36, 20),
+          margin-bottom: f.tw-em(12, 20),
+          line-height: f.tw-round(math.div(32, 20)),
+        ),
+        "img": (
+          margin-top: f.tw-em(40, 20),
+          margin-bottom: f.tw-em(40, 20),
+        ),
+        "picture": (
+          margin-top: f.tw-em(40, 20),
+          margin-bottom: f.tw-em(40, 20),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(40, 20),
+          margin-bottom: f.tw-em(40, 20),
+        ),
+        "kbd": (
+          font-size: f.tw-em(18, 20),
+          border-radius: f.tw-rem(5),
+          padding-top: f.tw-em(5, 20),
+          padding-inline-end: f.tw-em(8, 20),
+          padding-bottom: f.tw-em(5, 20),
+          padding-inline-start: f.tw-em(8, 20),
+        ),
+        "code": (
+          font-size: f.tw-em(18, 20),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(31, 36),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(27, 30),
+        ),
+        "pre": (
+          font-size: f.tw-em(18, 20),
+          line-height: f.tw-round(math.div(32, 18)),
+          margin-top: f.tw-em(36, 18),
+          margin-bottom: f.tw-em(36, 18),
+          border-radius: f.tw-rem(8),
+          padding-top: f.tw-em(20, 18),
+          padding-inline-end: f.tw-em(24, 18),
+          padding-bottom: f.tw-em(20, 18),
+          padding-inline-start: f.tw-em(24, 18),
+        ),
+        "ol": (
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+          padding-inline-start: f.tw-em(32, 20),
+        ),
+        "ul": (
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+          padding-inline-start: f.tw-em(32, 20),
+        ),
+        "li": (
+          margin-top: f.tw-em(12, 20),
+          margin-bottom: f.tw-em(12, 20),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(8, 20),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(8, 20),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(16, 20),
+          margin-bottom: f.tw-em(16, 20),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(24, 20),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(24, 20),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(16, 20),
+          margin-bottom: f.tw-em(16, 20),
+        ),
+        "dl": (
+          margin-top: f.tw-em(24, 20),
+          margin-bottom: f.tw-em(24, 20),
+        ),
+        "dt": (
+          margin-top: f.tw-em(24, 20),
+        ),
+        "dd": (
+          margin-top: f.tw-em(12, 20),
+          padding-inline-start: f.tw-em(32, 20),
+        ),
+        "hr": (
+          margin-top: f.tw-em(56, 20),
+          margin-bottom: f.tw-em(56, 20),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(18, 20),
+          line-height: f.tw-round(math.div(28, 18)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(12, 18),
+          padding-bottom: f.tw-em(16, 18),
+          padding-inline-start: f.tw-em(12, 18),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(16, 18),
+          padding-inline-end: f.tw-em(12, 18),
+          padding-bottom: f.tw-em(16, 18),
+          padding-inline-start: f.tw-em(12, 18),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(40, 20),
+          margin-bottom: f.tw-em(40, 20),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(18, 20),
+          line-height: f.tw-round(math.div(28, 18)),
+          margin-top: f.tw-em(18, 18),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+
+  .#{$p}prose-2xl {
+    @include m.apply-prose-scale(
+      (
+        font-size: f.tw-rem(24),
+        line-height: f.tw-round(math.div(40, 24)),
+        "p": (
+          margin-top: f.tw-em(32, 24),
+          margin-bottom: f.tw-em(32, 24),
+        ),
+        '[class~="lead"]': (
+          font-size: f.tw-em(30, 24),
+          line-height: f.tw-round(math.div(44, 30)),
+          margin-top: f.tw-em(32, 30),
+          margin-bottom: f.tw-em(32, 30),
+        ),
+        "blockquote": (
+          margin-top: f.tw-em(64, 36),
+          margin-bottom: f.tw-em(64, 36),
+          padding-inline-start: f.tw-em(40, 36),
+        ),
+        "h1": (
+          font-size: f.tw-em(64, 24),
+          margin-top: 0,
+          margin-bottom: f.tw-em(56, 64),
+          line-height: f.tw-round(math.div(64, 64)),
+        ),
+        "h2": (
+          font-size: f.tw-em(48, 24),
+          margin-top: f.tw-em(72, 48),
+          margin-bottom: f.tw-em(40, 48),
+          line-height: f.tw-round(math.div(52, 48)),
+        ),
+        "h3": (
+          font-size: f.tw-em(36, 24),
+          margin-top: f.tw-em(56, 36),
+          margin-bottom: f.tw-em(24, 36),
+          line-height: f.tw-round(math.div(44, 36)),
+        ),
+        "h4": (
+          margin-top: f.tw-em(40, 24),
+          margin-bottom: f.tw-em(16, 24),
+          line-height: f.tw-round(math.div(36, 24)),
+        ),
+        "img": (
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(48, 24),
+        ),
+        "picture": (
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(48, 24),
+        ),
+        "picture > img": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "video": (
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(48, 24),
+        ),
+        "kbd": (
+          font-size: f.tw-em(20, 24),
+          border-radius: f.tw-rem(6),
+          padding-top: f.tw-em(6, 24),
+          padding-inline-end: f.tw-em(8, 24),
+          padding-bottom: f.tw-em(6, 24),
+          padding-inline-start: f.tw-em(8, 24),
+        ),
+        "code": (
+          font-size: f.tw-em(20, 24),
+        ),
+        "h2 code": (
+          font-size: f.tw-em(42, 48),
+        ),
+        "h3 code": (
+          font-size: f.tw-em(32, 36),
+        ),
+        "pre": (
+          font-size: f.tw-em(20, 24),
+          line-height: f.tw-round(math.div(36, 20)),
+          margin-top: f.tw-em(40, 20),
+          margin-bottom: f.tw-em(40, 20),
+          border-radius: f.tw-rem(8),
+          padding-top: f.tw-em(24, 20),
+          padding-inline-end: f.tw-em(32, 20),
+          padding-bottom: f.tw-em(24, 20),
+          padding-inline-start: f.tw-em(32, 20),
+        ),
+        "ol": (
+          margin-top: f.tw-em(32, 24),
+          margin-bottom: f.tw-em(32, 24),
+          padding-inline-start: f.tw-em(38, 24),
+        ),
+        "ul": (
+          margin-top: f.tw-em(32, 24),
+          margin-bottom: f.tw-em(32, 24),
+          padding-inline-start: f.tw-em(38, 24),
+        ),
+        "li": (
+          margin-top: f.tw-em(12, 24),
+          margin-bottom: f.tw-em(12, 24),
+        ),
+        "ol > li": (
+          padding-inline-start: f.tw-em(10, 24),
+        ),
+        "ul > li": (
+          padding-inline-start: f.tw-em(10, 24),
+        ),
+        "> ul > li p": (
+          margin-top: f.tw-em(20, 24),
+          margin-bottom: f.tw-em(20, 24),
+        ),
+        "> ul > li > p:first-child": (
+          margin-top: f.tw-em(32, 24),
+        ),
+        "> ul > li > p:last-child": (
+          margin-bottom: f.tw-em(32, 24),
+        ),
+        "> ol > li > p:first-child": (
+          margin-top: f.tw-em(32, 24),
+        ),
+        "> ol > li > p:last-child": (
+          margin-bottom: f.tw-em(32, 24),
+        ),
+        "ul ul, ul ol, ol ul, ol ol": (
+          margin-top: f.tw-em(16, 24),
+          margin-bottom: f.tw-em(16, 24),
+        ),
+        "dl": (
+          margin-top: f.tw-em(32, 24),
+          margin-bottom: f.tw-em(32, 24),
+        ),
+        "dt": (
+          margin-top: f.tw-em(32, 24),
+        ),
+        "dd": (
+          margin-top: f.tw-em(12, 24),
+          padding-inline-start: f.tw-em(38, 24),
+        ),
+        "hr": (
+          margin-top: f.tw-em(72, 24),
+          margin-bottom: f.tw-em(72, 24),
+        ),
+        "hr + *": (
+          margin-top: 0,
+        ),
+        "h2 + *": (
+          margin-top: 0,
+        ),
+        "h3 + *": (
+          margin-top: 0,
+        ),
+        "h4 + *": (
+          margin-top: 0,
+        ),
+        "table": (
+          font-size: f.tw-em(20, 24),
+          line-height: f.tw-round(math.div(28, 20)),
+        ),
+        "thead th": (
+          padding-inline-end: f.tw-em(12, 20),
+          padding-bottom: f.tw-em(16, 20),
+          padding-inline-start: f.tw-em(12, 20),
+        ),
+        "thead th:first-child": (
+          padding-inline-start: 0,
+        ),
+        "thead th:last-child": (
+          padding-inline-end: 0,
+        ),
+        "tbody td, tfoot td": (
+          padding-top: f.tw-em(16, 20),
+          padding-inline-end: f.tw-em(12, 20),
+          padding-bottom: f.tw-em(16, 20),
+          padding-inline-start: f.tw-em(12, 20),
+        ),
+        "tbody td:first-child, tfoot td:first-child": (
+          padding-inline-start: 0,
+        ),
+        "tbody td:last-child, tfoot td:last-child": (
+          padding-inline-end: 0,
+        ),
+        "figure": (
+          margin-top: f.tw-em(48, 24),
+          margin-bottom: f.tw-em(48, 24),
+        ),
+        "figure > *": (
+          margin-top: 0,
+          margin-bottom: 0,
+        ),
+        "figcaption": (
+          font-size: f.tw-em(20, 24),
+          line-height: f.tw-round(math.div(32, 20)),
+          margin-top: f.tw-em(20, 20),
+        ),
+        "> :first-child": (
+          margin-top: 0,
+        ),
+        "> :last-child": (
+          margin-bottom: 0,
+        ),
+      )
+    );
+  }
+}

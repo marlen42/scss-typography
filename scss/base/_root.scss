@@ -1,0 +1,15 @@
+@use "../abstracts/variables" as v;
+
+// Global declaration of CSS variables for Typography.
+// Allows modifying colors at runtime via JS or CSS.
+:root {
+  // Original theme (Gray)
+  @each $key, $value in v.$prose-colors-gray {
+    --tw-prose-#{$key}: #{$value};
+  }
+
+  // Dark mode
+  @each $key, $value in v.$prose-colors-gray-invert {
+    --tw-prose-invert-#{$key}: #{$value};
+  }
+}

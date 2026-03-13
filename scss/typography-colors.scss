@@ -1,0 +1,4 @@
+// COLOR PALETTES WITHOUT RESPONSIVE (prose-slate, prose-zinc...)
+@use "modifiers/colors" as c;
+
+@include c.generate-colors();

@@ -1,0 +1,58 @@
+// Color map for the gray theme (Tailwind Typography default)
+$prose-colors-gray: (
+  body: #374151,
+  headings: #111827,
+  lead: #4b5563,
+  links: #111827,
+  bold: #111827,
+  counters: #6b7280,
+  bullets: #d1d5db,
+  hr: #e5e7eb,
+  quotes: #111827,
+  quote-borders: #e5e7eb,
+  captions: #6b7280,
+  kbd: #111827,
+  kbd-shadows: rgb(17 24 39 / 10%),
+  code: #111827,
+  pre-code: #e5e7eb,
+  pre-bg: #1f2937,
+  th-borders: #d1d5db,
+  td-borders: #e5e7eb,
+) !default;
+
+// Inverted palette for dark mode
+$prose-colors-gray-invert: (
+  body: #d1d5db,
+  headings: #fff,
+  lead: #9ca3af,
+  links: #fff,
+  bold: #fff,
+  counters: #9ca3af,
+  bullets: #4b5563,
+  hr: #374151,
+  quotes: #f3f4f6,
+  quote-borders: #374151,
+  captions: #9ca3af,
+  kbd: #fff,
+  kbd-shadows: rgb(255 255 255 / 10%),
+  code: #fff,
+  pre-code: #d1d5db,
+  pre-bg: rgb(0 0 0 / 50%),
+  th-borders: #4b5563,
+  td-borders: #374151,
+) !default;
+
+// Global map used to build native CSS variables
+$prose-colors: (
+  gray: $prose-colors-gray,
+  gray-invert: $prose-colors-gray-invert,
+) !default;
+
+// Breakpoints for responsive classes
+$screens: (
+  sm: 640px,
+  md: 768px,
+  lg: 1024px,
+  xl: 1280px,
+  "2xl": 1536px,
+) !default;

@@ -1,0 +1,10 @@
+// ONLY RESPONSIVE SIZE VARIANTS (md:prose-lg, etc)
+@use "abstracts/variables" as v;
+@use "modifiers/sizes" as s;
+
+@each $screen, $breakpoint in v.$screens {
+  @media (min-width: $breakpoint) {
+    @include s.generate-base-size($screen);
+    @include s.generate-sizes($screen);
+  }
+}

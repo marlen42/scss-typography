@@ -1,0 +1,45 @@
+{
+  "name": "scss-typography",
+  "version": "1.0.0",
+  "description": "SCSS port of the Tailwind CSS Typography plugin",
+  "keywords": [
+    "tailwind",
+    "typography",
+    "scss",
+    "css",
+    "prose"
+  ],
+  "author": "marlen42",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marlen42/scss-typography.git"
+  },
+  "bugs": {
+    "url": "https://github.com/marlen42/scss-typography/issues"
+  },
+  "homepage": "https://github.com/marlen42/scss-typography#readme",
+  "main": "css/typography.css",
+  "style": "css/typography.css",
+  "files": [
+    "css/",
+    "scss/",
+    "LICENSE",
+    "README.md"
+  ],
+  "devDependencies": {
+    "@types/bun": "latest",
+    "cssnano": "^7.1.3",
+    "postcss-cli": "^11.0.1",
+    "sass": "^1.98.0"
+  },
+  "private": false,
+  "scripts": {
+    "build:css": "sass scss:css --style=expanded --source-map",
+    "build:css:min": "postcss \"css/*.css\" -d css/min --ext .min.css -u cssnano --no-map",
+    "build:css:all": "bun run build:css && bun run build:css:min",
+    "build:html": "cd site && bun install --frozen-lockfile && bun run build",
+    "build": "bun run build:css:all && bun run build:html",
+    "prepare": "bun run build:css:all"
+  }
+}

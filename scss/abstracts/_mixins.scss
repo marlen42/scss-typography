@@ -1,0 +1,81 @@
+@use "sass:map";
+@use "sass:meta";
+@use "sass:string";
+@use "sass:list";
+@use "functions" as f;
+
+// Build a protected selector using :not(.not-prose) for a given segment
+@function process-single-selector($selector, $parent) {
+  $pseudo: "";
+  $base-selector: $selector;
+
+  @if string.index($selector, "::") {
+    $idx: string.index($selector, "::");
+    $pseudo: string.slice($selector, $idx);
+    $base-selector: string.slice($selector, 1, $idx - 1);
+  }
+
+  $first-char: string.slice($base-selector, 1, 1);
+  @while $first-char == " " {
+    $base-selector: string.slice($base-selector, 2);
+    $first-char: string.slice($base-selector, 1, 1);
+  }
+
+  $is-direct-or-adjacent: $first-char == ">" or $first-char == "+" or
+    $first-char == "~";
+
+  $not-prose: ":where([class~='not-prose'], [class~='not-prose'] *)";
+
+  @if $is-direct-or-adjacent {
+    @return "#{$parent} :where(#{$parent} #{$base-selector}):not(#{$not-prose})#{$pseudo}";
+  } @else {
+    @return "#{$parent} :where(#{$base-selector}):not(#{$not-prose})#{$pseudo}";
+  }
+}
+
+// Apply content within the protected .prose scope
+// Supports multiple selectors separated by commas
+@mixin prose-el($selectors) {
+  $parts: string.split($selectors, ",");
+  $built: ();
+  $parent: &;
+
+  @each $part in $parts {
+    $part: string.unquote($part);
+    @while string.length($part) > 0 and string.slice($part, 1, 1) == " " {
+      $part: string.slice($part, 2);
+    }
+    $sel: process-single-selector($part, $parent);
+    $built: list.append($built, string.unquote($sel), comma);
+  }
+
+  @at-root #{$built} {
+    @content;
+  }
+}
+
+// Apply a complete typographic scale from a configuration map.
+// Top-level keys are direct CSS properties; sub-maps are treated as
+// element selectors with their own property maps.
+@mixin apply-prose-scale($config) {
+  @if map.has-key($config, font-size) {
+    font-size: map.get($config, font-size);
+  }
+  @if map.has-key($config, line-height) {
+    line-height: map.get($config, line-height);
+  }
+
+  @each $key, $value in $config {
+    @if $key != font-size and $key != line-height {
+      @if meta.type-of($value) == map {
+        @include prose-el($key) {
+          @each $prop, $val in $value {
+            #{$prop}: $val;
+          }
+        }
+      } @else {
+        #{$key}: $value;
+      }
+    }
+  }
+}

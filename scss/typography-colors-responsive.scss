@@ -1,0 +1,9 @@
+// RESPONSIVE COLOR PALETTES (md:prose-slate)
+@use "abstracts/variables" as v;
+@use "modifiers/colors" as c;
+
+@each $screen, $breakpoint in v.$screens {
+  @media (min-width: $breakpoint) {
+    @include c.generate-colors($screen);
+  }
+}

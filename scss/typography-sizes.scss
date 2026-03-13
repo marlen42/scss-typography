@@ -1,0 +1,4 @@
+// ONLY EXTRA SIZES (sm, lg, xl) WITHOUT RESPONSIVE
+@use "modifiers/sizes" as s;
+
+@include s.generate-sizes();

@@ -1,0 +1,147 @@
+---
+import "../styles/global.css";
+import "../../../css/typography-core.css";
+import "../../../css/typography-sizes.css";
+import "../../../css/typography-sizes-responsive.css";
+import "../../../css/typography-colors.css";
+import "../../../css/typography-colors-responsive.css";
+import { Content } from "../content.md";
+---
+
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="icon" href="/favicon.ico" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>SCSS Typography Demo</title>
+		<style>
+			body {
+				padding: 2rem;
+				font-family: sans-serif;
+			}
+			.controls {
+				display: flex;
+				gap: 1.5rem;
+				margin-bottom: 2rem;
+				justify-content: center;
+				align-items: center;
+				padding: 1rem;
+				background: #f3f4f6;
+				border-radius: 0.5rem;
+			}
+			.columns-container {
+				display: flex;
+				gap: 2rem;
+				transition: background-color 0.3s, color 0.3s;
+			}
+			.column {
+				flex: 1;
+				min-width: 0;
+			}
+			.column-title {
+				text-align: center;
+				font-size: 1.5rem;
+				font-weight: bold;
+				margin-bottom: 2rem;
+			}
+			body.dark {
+				background-color: #111827;
+				color: #f9fafb;
+			}
+			body.dark .controls {
+				background: #1f2937;
+				color: white;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="controls">
+			<label>
+				Size:
+				<select id="size-select">
+					<option value="sm">Small</option>
+					<option value="base" selected>Base</option>
+					<option value="lg">Large</option>
+					<option value="xl">XL</option>
+					<option value="2xl">2XL</option>
+				</select>
+			</label>
+			<label style="display: flex; gap: 0.5rem; align-items: center;">
+				<input type="checkbox" id="dark-mode-toggle" />
+				Dark mode (Invert)
+			</label>
+		</div>
+
+		<div class="columns-container">
+			<div class="column">
+				<div class="column-title">SCSS Typography</div>
+				<article id="scss-article" class="prose mx-auto">
+					<Content />
+				</article>
+			</div>
+			<div class="column">
+				<div class="column-title">Tailwind Typography</div>
+				<article id="tw-article" class="tailwind-prose mx-auto">
+					<Content />
+				</article>
+			</div>
+		</div>
+
+		<script>
+			const sizeSelect = document.getElementById('size-select') as HTMLSelectElement;
+			const darkModeToggle = document.getElementById('dark-mode-toggle') as HTMLInputElement;
+			const scssArticle = document.getElementById('scss-article');
+			const twArticle = document.getElementById('tw-article');
+
+			const safelistTw = [
+				'tailwind-prose-sm', 
+				'tailwind-prose-base', 
+				'tailwind-prose-lg', 
+				'tailwind-prose-xl', 
+				'tailwind-prose-2xl', 
+				'tailwind-prose-invert'
+			];
+
+			let currentSize = 'base';
+			const baseClassesScss = ['prose', 'mx-auto'];
+			const baseClassesTw = ['tailwind-prose', 'mx-auto'];
+
+			function updateClasses() {
+				if (!scssArticle || !twArticle || !sizeSelect || !darkModeToggle) return;
+
+				scssArticle.className = baseClassesScss.join(' ');
+				twArticle.className = baseClassesTw.join(' ');
+
+				if (currentSize !== 'base') {
+					scssArticle.classList.add(`prose-${currentSize}`);
+					twArticle.classList.add(`tailwind-prose-${currentSize}`);
+				}
+
+				if (darkModeToggle.checked) {
+					document.body.classList.add('dark');
+					scssArticle.classList.add('prose-invert');
+					twArticle.classList.add('tailwind-prose-invert');
+				} else {
+					document.body.classList.remove('dark');
+					scssArticle.classList.remove('prose-invert');
+					twArticle.classList.remove('tailwind-prose-invert');
+				}
+			}
+
+			if (sizeSelect) {
+				sizeSelect.addEventListener('change', (e) => {
+					currentSize = (e.target as HTMLSelectElement).value;
+					updateClasses();
+				});
+			}
+
+			if (darkModeToggle) {
+				darkModeToggle.addEventListener('change', () => {
+					updateClasses();
+				});
+			}
+		</script>
+	</body>
+</html>
